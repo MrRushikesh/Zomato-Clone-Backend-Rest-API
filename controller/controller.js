@@ -51,6 +51,30 @@ async function postData (collectionName, data){
 
 }
 
+async function updateOrder (collectionName, condition, data){
+    let output;
+
+    try{
+        output = await db.collection(collectionName).updateOne(condition,data);
+    }catch(err){
+        output = {"Error":"Error While Updating the data..."}
+    }
+
+    return output;
+
+}
+
+async function deleteOrder (collectionName, condition){
+    let output;
+    try{
+        output = await db.collection(collectionName).deleteOne(condition);
+    }catch(err){
+        output = {"Error" : "Error While Deleting the data"}
+    }
+
+    return output;
+}
 
 
-module.exports = {dbConnection, getData, postData};
+
+module.exports = {dbConnection, getData, postData, updateOrder, deleteOrder};

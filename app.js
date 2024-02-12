@@ -4,9 +4,14 @@ let port = 5000;
 let bodyPareser = require('body-parser');
 const cors = require('cors');
 
-const {dbConnection, getData, postData} = require('./controller/controller.js');
+const {dbConnection, getData, postData, updateOrder, deleteOrder} = require('./controller/controller.js');
 const Mongo = require('mongodb');
 
+
+//Middleware
+app.use(bodyPareser.json()); //When you pass data from body then you must required this package. 
+app.use(bodyPareser.urlencoded({extended:true}));
+app.use(cors());
 
 
 
@@ -142,6 +147,79 @@ app.get('/orders', async(req, res) => {
 })
 
 
+// //When you pass data from body then you must required this package. 
+// app.use(bodyPareser.json()); 
+// app.use(bodyPareser.urlencoded({extended:true}));
+
+//POST :  http://localhost:5000/placeOrder
+// BODY -> raw -> JSON -> 
+// { 
+//     "name" : "rushi", 
+//     "email" : "rushi@gmail.com", 
+//     "address" : "home 65", 
+//     "phone" : 7447640893, 
+//     "cost" : 612, 
+//     "menuItem" : [ 45, 34, 41 ], 
+//     "status" : "Delivered" 
+// }
+app.post('/placeOrder', async(req,res) => {
+    let data = req.body;
+    let collection = "orders"
+    let response = await postData(collection, data);
+    res.send(response);
+})
+
+
+// POST : http://localhost:5000/menuDetails
+// BODY -> raw -> JSON -> 
+// {
+//     "id":[4,8,21,9]
+// }
+app.post('/menuDetails', async(req, res) => {
+    if(Array.isArray(req.body.id)){
+        let query = {menu_id:{$in:req.body.id}}
+        let collection = 'menu';
+        let output = await getData(collection,query);
+        res.send(output)
+    }else{
+        res.send("Plase pass data in form of array...")
+    }
+})
+
+
+//PUT : http://localhost:5000/updateOrder
+//BODY -> raw -> JSON -> 
+// { 
+//     "_id":"65c9fff803a710300c651772", 
+//     "status":"Out for delivery"
+// }
+app.put('/updateOrder', async(req,res) => {
+    let collection = 'orders';
+    let condition = {"_id": new Mongo.ObjectId(req.body._id)}
+    let data = {
+        $set:{
+            "status" : req.body.status
+        }
+    }
+    let output = await updateOrder(collection, condition, data);
+    res.send(output);
+})
+
+
+// DELETE :  http://localhost:5000/deleteOrder
+// BODY -> raw -> JSON ->
+// {
+//     "_id" : "65c9fff803a710300c651772"
+// } 
+app.delete('/deleteOrder', async(req, res) => {
+    let collection = 'orders';
+    let condition = {"_id": new Mongo.ObjectId(req.body._id)}
+    let output = await deleteOrder(collection, condition);
+    res.send(output);
+})
+
+
+// Server & Database Connection
 app.listen(port, (err) => {
     //database Connection 
     dbConnection();
