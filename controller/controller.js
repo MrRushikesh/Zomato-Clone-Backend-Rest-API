@@ -5,6 +5,7 @@ let mongoUrl = `mongodb://127.0.0.1:27017/`;
 
 let client = new MongoClient(mongoUrl);
 
+// Database Connectin -: 
 async function dbConnection() {
     try{
         let res = await client.connect();
@@ -14,9 +15,11 @@ async function dbConnection() {
     }
 }
 
+// Database Name -: 
 let db = client.db('zomato');
 
 
+//GET
 async function getData(collectionName, query){
 
     let output = [];
@@ -33,10 +36,9 @@ async function getData(collectionName, query){
     }
 
     return output;
-
 }
 
-
+// POST 
 async function postData (collectionName, data){
 
     let output;
@@ -51,6 +53,7 @@ async function postData (collectionName, data){
 
 }
 
+//UPDATE
 async function updateOrder (collectionName, condition, data){
     let output;
 
@@ -64,6 +67,7 @@ async function updateOrder (collectionName, condition, data){
 
 }
 
+//DELETE
 async function deleteOrder (collectionName, condition){
     let output;
     try{
@@ -74,7 +78,5 @@ async function deleteOrder (collectionName, condition){
 
     return output;
 }
-
-
 
 module.exports = {dbConnection, getData, postData, updateOrder, deleteOrder};
