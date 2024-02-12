@@ -131,7 +131,18 @@ app.get('/details/:id', async(req, res) => {
 })
 
 
+//  http://localhost:5000/menu/5
+app.get('/menu/:id', async(req,res) => {
+    let id = Number(req.params.id);
+    let query = {restaurant_id : id};
+    let collection = "menu";
+    let output = await getData(collection, query);
+    res.send(output);
+})
+
+
 // Orders -: 
+// http://localhost:5000/orders?email=rushi@gmail.com
 app.get('/orders', async(req, res) => {
     let query = {}
     if(req.query.email){
