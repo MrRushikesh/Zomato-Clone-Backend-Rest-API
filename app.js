@@ -20,6 +20,7 @@ app.get('/', (req,res) => {
 })
 
 // http://localhost:5000/location
+// https://zomato-rest-api.onrender.com/location
 
 app.get('/location', async(req,res) => {
     // db.location.find({}).pretty().count()
@@ -32,6 +33,7 @@ app.get('/location', async(req,res) => {
 
 
 // http://localhost:5000/mealType
+// https://zomato-rest-api.onrender.com/mealType
 
 app.get('/mealType', async(req,res) => {
     //  db.mealType.find({}).pretty().count()
@@ -43,9 +45,16 @@ app.get('/mealType', async(req,res) => {
 
 
 // http://localhost:5000/restaurants?stateId=1&mealId=2
+// https://zomato-rest-api.onrender.com/restaurants?stateId=1&mealId=2
+
 // http://localhost:5000/restaurants?stateId=4
+// https://zomato-rest-api.onrender.com/restaurants?stateId=4
+
 // http://localhost:5000/restaurants?mealId=3
+// https://zomato-rest-api.onrender.com/restaurants?mealId=3
+
 // http://localhost:5000/restaurants
+// https://zomato-rest-api.onrender.com/restaurants
 
 app.get('/restaurants', async(req,res) => {
     let query = {}
@@ -75,8 +84,13 @@ app.get('/restaurants', async(req,res) => {
 
 
 // http://localhost:5000/filter/2?cuisineId=4
+// https://zomato-rest-api.onrender.com/filter/2?cuisineId=4
+
 // http://localhost:5000/filter/1?lcost=500&hcost=1000
+// https://zomato-rest-api.onrender.com/filter/1?lcost=500&hcost=1000
+
 // http://localhost:5000/filter/1
+// https://zomato-rest-api.onrender.com/filter/1
 app.get('/filter/:mealId', async(req,res) => {
     let mealId = Number(req.params.mealId);  //after slash (/:mealId) is called params
 
@@ -108,6 +122,8 @@ app.get('/filter/:mealId', async(req,res) => {
 //MONGO DB.ObjectId -: 
 
 // // http://localhost:5000/details/65c9b0a31fa17e0841e1dc53
+// // https://zomato-rest-api.onrender.com/details/65c9b0a31fa17e0841e1dc53
+
 // app.get('/details/:id', async(req,res) => {
 //     let id = new Mongo.ObjectId(req.params.id);
 //     // http://localhost:5000/details/65c9b0a31fa17e0841e1dc55
@@ -120,6 +136,8 @@ app.get('/filter/:mealId', async(req,res) => {
 
 
 // http://localhost:5000/details/11
+// https://zomato-rest-api.onrender.com/details/11
+
 app.get('/details/:id', async(req, res) => {
     let id = Number(req.params.id);
     // http://localhost:5000/details/12
@@ -132,6 +150,7 @@ app.get('/details/:id', async(req, res) => {
 
 
 //  http://localhost:5000/menu/5
+//  https://zomato-rest-api.onrender.com/menu/5
 app.get('/menu/:id', async(req,res) => {
     let id = Number(req.params.id);
     let query = {restaurant_id : id};
@@ -143,6 +162,7 @@ app.get('/menu/:id', async(req,res) => {
 
 // Orders -: 
 // http://localhost:5000/orders?email=rushi@gmail.com
+// https://zomato-rest-api.onrender.com/orders?email=anchal@gmail.com
 app.get('/orders', async(req, res) => {
     let query = {}
     if(req.query.email){
@@ -163,6 +183,8 @@ app.get('/orders', async(req, res) => {
 // app.use(bodyPareser.urlencoded({extended:true}));
 
 //POST :  http://localhost:5000/placeOrder
+//POST : https://zomato-rest-api.onrender.com/placeOrder
+
 // BODY -> raw -> JSON -> 
 // { 
 //     "name" : "rushi", 
@@ -182,6 +204,7 @@ app.post('/placeOrder', async(req,res) => {
 
 
 // POST : http://localhost:5000/menuDetails
+// POST : https://zomato-rest-api.onrender.com/menuDetails
 // BODY -> raw -> JSON -> 
 // {
 //     "id":[4,8,21,9]
@@ -199,6 +222,7 @@ app.post('/menuDetails', async(req, res) => {
 
 
 //PUT : http://localhost:5000/updateOrder
+//PUT :  https://zomato-rest-api.onrender.com/updateOrder
 //BODY -> raw -> JSON -> 
 // { 
 //     "_id":"65c9fff803a710300c651772", 
@@ -218,6 +242,8 @@ app.put('/updateOrder', async(req,res) => {
 
 
 // DELETE :  http://localhost:5000/deleteOrder
+// DELETE : https://zomato-rest-api.onrender.com/deleteOrder
+
 // BODY -> raw -> JSON ->
 // {
 //     "_id" : "65c9fff803a710300c651772"
