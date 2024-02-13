@@ -6,7 +6,7 @@ let mongoUrl = `mongodb+srv://rushikeshingale7447:nxuAikDE0tzaQ024@cluster0.dnwn
 
 let client = new MongoClient(mongoUrl);
 
-// Database Connectin -: 
+// Database Connection -: 
 async function dbConnection() {
     try{
         let res = await client.connect();
